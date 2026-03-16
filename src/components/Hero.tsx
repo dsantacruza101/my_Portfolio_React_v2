@@ -8,6 +8,7 @@ export const Hero = () => {
 
   return (
     <section
+      id="home"
       className="
         relative 
         w-full 
