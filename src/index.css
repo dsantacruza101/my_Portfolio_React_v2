@@ -1,19 +1,37 @@
 @import "tailwindcss";
 
+/* 1. Mueve la variante dark antes de las capas base para que Tailwind la registre primero */
+@variant dark (&:where(.dark, .dark *));
+
+/* 2. CRÍTICO: Indica a Tailwind v4 dónde buscar tus clases si el auto-detect falla */
+@source "../index.html";
+@source "./**/*.{ts,tsx}";
+
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
+    /* Suaviza todas las transiciones de colores (Dark Mode Senior) */
+    @apply transition-colors duration-300;
   }
 
-  html, body, #root {
+  html {
+    /* Evita el salto visual al cambiar de tema */
+    scroll-behavior: smooth;
+  }
+
+  body {
     margin: 0;
     padding: 0;
     width: 100%;
     min-height: 100vh;
-  }
-
-  body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Asegura que el body use el color de fondo del tema */
+    @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
   }
 }

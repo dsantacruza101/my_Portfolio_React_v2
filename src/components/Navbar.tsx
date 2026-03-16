@@ -4,17 +4,21 @@ import { Sun, Moon, Languages } from 'lucide-react';
 
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
-  const [isDark, setIsDark] = useState(true);
-
+const [isDark, setIsDark] = useState(() => {
+  return localStorage.getItem('theme') === 'dark' || 
+         (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+});
   // Manejo de Tema (Dark Mode)
   useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDark) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-  }, [isDark]);
+  const root = window.document.documentElement;
+  if (isDark) {
+    root.classList.add('dark');
+    localStorage.setItem('theme', 'dark'); // Guarda la elección
+  } else {
+    root.classList.remove('dark');
+    localStorage.setItem('theme', 'light'); // Guarda la elección
+  }
+}, [isDark]);
 
   const toggleLanguage = () => {
     i18n.changeLanguage(i18n.language.includes('es') ? 'en' : 'es');
