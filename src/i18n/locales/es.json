@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "role": "INGENIEIRO DE SISTEMAS",
+    "description": "Experto en arquitecturas modernas (NestJS/React), migración de microservicios y soluciones de IA con RAG. Entregando software escalable para el sector gubernamental y privado.",
+    "cta_projects": "Ver Proyectos"
+  },
+  "nav": {
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "skills": "Habilidades",
+    "contact": "Contacto"
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "description": "Soy un apasionado de la tecnología con más de 5 años de trayectoria transformando procesos complejos en soluciones digitales eficientes. Mi enfoque combina la robustez del backend con experiencias de usuario intuitivas, siempre priorizando la escalabilidad y las buenas prácticas de ingeniería.",
+    "years_exp": "Años de Experiencia",
+    "experience": "Experiencia",
+    "specialty": "Especialidad",
+    "education": "Educación"
+  },
+  "skills": {
+    "title": "Habilidades Técnicas",
+    "categories": {
+      "frontend": "Frontend Development",
+      "backend": "Backend & Cloud",
+      "devops": "DevOps & Infra"
+    }
+  },
+  "projects": {
+    "title": "Proyectos Destacados",
+    "ai_desc": "Sistema de consulta inteligente usando RAG y modelos Llama 3 para análisis documental.",
+    "micro_desc": "Arquitectura de microservicios escalable para gestión de tráfico consular."
+  },
+  "contact": {
+    "title": "Hablemos",
+    "subtitle": "¿Tienes un proyecto en mente? Estoy listo para ayudar.",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "subject": "Asunto",
+    "message": "Mensaje",
+    "send": "Enviar Mensaje",
+    "sending": "Enviando...",
+    "success": "¡Mensaje enviado con éxito!",
+    "errors": {
+      "name_error": "El nombre debe tener al menos 3 caracteres",
+      "email_error": "Ingresa un correo electrónico válido",
+      "subject_error": "El asunto es demasiado corto",
+      "message_error": "Cuéntame un poco más (mínimo 10 caracteres)"
+    }
+  }
+}
