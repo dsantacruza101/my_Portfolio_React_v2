@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SKILL_CATEGORIES } from '../data/data';
-
 export const Skills = () => {
   const { t } = useTranslation();
-
   return (
     <section id="skills" className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors">
       <div className="container mx-auto px-6">
@@ -14,7 +12,6 @@ export const Skills = () => {
           </h2>
           <div className="h-1.5 w-20 bg-blue-600 mx-auto mt-4 rounded-full" />
         </div>
-
         <div className="grid md:grid-cols-3 gap-8">
           {SKILL_CATEGORIES.map((category, idx) => (
             <motion.div

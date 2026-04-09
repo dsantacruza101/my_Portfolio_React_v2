@@ -6,5 +6,5 @@ export interface Project {
   image: string;
   githubUrl?: string;
   demoUrl?: string;
-  isWip?: boolean; // Para tus proyectos "Work in Progress"
+  isWip?: boolean; 
 }

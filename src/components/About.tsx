@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Award, Briefcase, GraduationCap } from "lucide-react";
-// Asegúrate de que la ruta sea correcta según tu estructura de carpetas
 import aboutImage from '../assets/images/portfolio_02.png';
-
 export const About = () => {
   const { t } = useTranslation();
-
   return (
     <motion.section
       id="about"
@@ -18,24 +15,20 @@ export const About = () => {
     >
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center gap-16">
-          
-          {/* Visual: Foto con marcos decorativos */}
+          {}
           <div className="flex-1 relative w-full max-w-md mx-auto md:max-w-none">
-            {/* Marco decorativo azul */}
+            {}
             <div className="absolute -top-4 -left-4 w-full h-full border-4 border-blue-600 rounded-2xl z-0" />
-            
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group">
-              {/* Overlay de gradiente corregido para Tailwind estándar */}
+              {}
               <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
-              
               <img
                 src={aboutImage}
                 alt="Daniel Santacruz"
                 className="w-full h-auto min-h-10 object-cover rounded-2xl transform transition-transform duration-700 group-hover:scale-105"
               />
             </div>
-
-            {/* Badge de Experiencia */}
+            {}
             <motion.div 
               initial={{ scale: 0, rotate: -10 }}
               whileInView={{ scale: 1, rotate: 0 }}
@@ -48,8 +41,7 @@ export const About = () => {
               </p>
             </motion.div>
           </div>
-
-          {/* Contenido: Tu Historia */}
+          {}
           <div className="flex-1 space-y-8">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -60,13 +52,11 @@ export const About = () => {
                 {t("about.title")}
               </h2>
               <div className="h-1.5 w-20 bg-blue-600 my-6 rounded-full" />
-              
               <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light">
                 {t("about.description")}
               </p>
             </motion.div>
-
-            {/* Stats Rápidos */}
+            {}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               <AboutItem
                 icon={<Briefcase size={20} />}
@@ -93,7 +83,6 @@ export const About = () => {
     </motion.section>
   );
 };
-
 const AboutItem = ({
   icon,
   title,

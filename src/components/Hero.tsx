@@ -2,10 +2,8 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { GithubIcon, Linkedin, Terminal } from "lucide-react";
 import profilePic from "../assets/images/portfolio_01.png";
-
 export const Hero = () => {
   const { t } = useTranslation();
-
   return (
     <section
       id="home"
@@ -21,11 +19,11 @@ export const Hero = () => {
         dark:bg-slate-900"
     >
       {" "}
-      {/* Decoración de fondo (Blurry Blobs) - Estilo Moderno 2026 */}
+      {}
       <div className="absolute top-1/4 -left-20 w-72 h-72 bg-blue-500/20 rounded-full blur-[120px] dark:bg-blue-600/10" />
       <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-teal-500/20 rounded-full blur-[120px] dark:bg-teal-600/10" />
       <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-12">
-        {/* Lado Izquierdo: Texto */}
+        {}
         <div className="flex-1 text-center md:text-left">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -36,23 +34,19 @@ export const Hero = () => {
               <Terminal size={16} />
               <span>{t("hero.role")}</span>
             </div>
-
             <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1]">
               Daniel <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-400">
                 Santacruz
               </span>
             </h1>
-
             <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
               {t("hero.description")}
             </p>
-
             <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
               <button className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-1">
                 {t("hero.cta_projects")}
               </button>
-
               <div className="flex items-center gap-3 ml-2">
                 <a
                   href="#"
@@ -70,8 +64,7 @@ export const Hero = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* Lado Derecho: Foto Visual (Mejorando tu diseño de logos) */}
+        {}
         <motion.div
           className="flex-1 relative"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -79,10 +72,9 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="relative w-72 h-72 md:w-112.5 md:h-112.5 mx-auto">
-            {/* El "Anillo" de logos dinámico */}
+            {}
             <div className="absolute inset-0 rounded-full border-2 border-dashed border-slate-200 dark:border-slate-800 animate-[spin_20s_linear_infinite]" />
-
-            {/* Tu Foto con Glassmorphism */}
+            {}
             <div className="absolute inset-8 rounded-3xl overflow-hidden border-8 border-white dark:border-slate-800 shadow-2xl">
               <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent z-10" />
               <img
@@ -91,8 +83,7 @@ export const Hero = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-
-            {/* Badges de Tech Flotantes (SOLID: Datos separados después) */}
+            {}
             <TechBadge label="NestJS" className="top-10 -left-5 bg-red-500" />
             <TechBadge
               label="React"
@@ -108,7 +99,6 @@ export const Hero = () => {
     </section>
   );
 };
-
 const TechBadge = ({
   label,
   className,

@@ -1,11 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { ProjectCard } from './ProjectCards';
 import type { Project } from '../types/project';
-
 export const Projects = () => {
   const { t } = useTranslation();
-
-  // Esta es la "mecha". Hoy es un array, mañana será un fetch() a tu FastAPI
   const projects: Project[] = [
     {
       id: '1',
@@ -23,7 +20,6 @@ export const Projects = () => {
       image: '/projects/micro.jpg',
     }
   ];
-
   return (
     <section id="projects" className="py-24 bg-white dark:bg-slate-900">
       <div className="container mx-auto px-6">
@@ -31,7 +27,6 @@ export const Projects = () => {
           <span className="w-12 h-1 bg-blue-600 rounded-full" />
           {t('projects.title')}
         </h2>
-        
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map(p => <ProjectCard key={p.id} project={p} />)}
         </div>
