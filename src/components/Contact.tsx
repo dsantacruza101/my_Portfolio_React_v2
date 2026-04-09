@@ -4,6 +4,7 @@ import * as z from 'zod';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Send, Mail, User, MessageSquare } from 'lucide-react';
+import toast from 'react-hot-toast';
 const contactSchema = z.object({
   name: z.string().min(3, { message: 'name_error' }),
   email: z.email({ message: 'email_error' }),
@@ -16,11 +17,16 @@ export const Contact = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
-  const onSubmit = async (data: ContactFormData) => {
-    console.log('Form Data:', data);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    alert(t('contact.success'));
-    reset();
+  const onSubmit = async (_data: ContactFormData) => {
+    const toastId = toast.loading(t('contact.sending'));
+    void _data;
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      toast.success(t('contact.success'), { id: toastId });
+      reset();
+    } catch {
+      toast.error(t('contact.sending_error') || 'Could not send message', { id: toastId });
+    }
   };
   return (
     <section id="contact" className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors">

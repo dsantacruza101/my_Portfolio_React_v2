@@ -49,13 +49,15 @@ export const Hero = () => {
               </button>
               <div className="flex items-center gap-3 ml-2">
                 <a
-                  href="#"
+                  target="_blank"
+                  href="https://github.com/dsantacruza101"
                   className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
                 >
                   <GithubIcon size={24} />
                 </a>
                 <a
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com/in/daniel-santacruz-5a71a61a9/"
                   className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
                 >
                   <Linkedin size={24} />
