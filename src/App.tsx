@@ -1,11 +1,13 @@
-rc/App.timport './App.css'
+
+import './App.css'
 import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { Projects } from './components/Projects';
 import { Skills } from './components/Skills';
-rc/App.tfunction App() {
+
+function App() {
   return (
     <main className="min-h-screen bg-white dark:bg-slate-900 selection:bg-blue-500 selection:text-white">
       <Navbar />
@@ -20,4 +22,5 @@ rc/App.tfunction App() {
     </main>
   );
 }
-rc/App.texport default App
+
+export default App
