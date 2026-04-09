@@ -26,12 +26,12 @@ export const About = () => {
             
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group">
               {/* Overlay de gradiente corregido para Tailwind estándar */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
+              <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
               
               <img
                 src={aboutImage}
                 alt="Daniel Santacruz"
-                className="w-full h-auto min-h-[400px] object-cover rounded-2xl transform transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-auto min-h-10 object-cover rounded-2xl transform transition-transform duration-700 group-hover:scale-105"
               />
             </div>
 

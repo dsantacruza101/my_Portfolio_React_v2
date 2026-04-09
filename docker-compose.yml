@@ -1,0 +1,24 @@
+services:
+  portfolio:
+    # 1. Indica que debe construir la imagen usando el Dockerfile de esta carpeta
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    
+    # 2. Nombre del contenedor para identificarlo fácilmente en Docker Desktop
+    container_name: daniel-portfolio-app
+    
+    # 3. Mapeo de puertos: [Puerto de tu Mac] : [Puerto interno de Nginx]
+    ports:
+      - "8080:80"
+    
+    # 4. Políticas de reinicio (útil si el servidor se cae)
+    restart: unless-stopped
+    
+    # 5. Definición de red (opcional, pero buena práctica Senior)
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: bridge

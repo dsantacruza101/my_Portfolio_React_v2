@@ -8,7 +8,7 @@ import { Send, Mail, User, MessageSquare } from 'lucide-react';
 // 1. Definición del Esquema de Validación (Zod)
 const contactSchema = z.object({
   name: z.string().min(3, { message: 'name_error' }),
-  email: z.string().email({ message: 'email_error' }),
+  email: z.email({ message: 'email_error' }),
   subject: z.string().min(5, { message: 'subject_error' }),
   message: z.string().min(10, { message: 'message_error' }),
 });

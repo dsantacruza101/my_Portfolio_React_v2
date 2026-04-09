@@ -8,7 +8,9 @@
 @source "./**/*.{ts,tsx}";
 
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
     /* Suaviza todas las transiciones de colores (Dark Mode Senior) */
     @apply transition-colors duration-300;
@@ -30,6 +32,10 @@
     @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100;
   }
 
+  /* Ajuste para que el scroll se detenga antes del Navbar */
+  section[id] {
+    scroll-margin-top: 70px;
+  }
   #root {
     width: 100%;
     min-height: 100vh;

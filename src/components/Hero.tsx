@@ -109,7 +109,6 @@ export const Hero = () => {
   );
 };
 
-// Sub-componente interno para mantener SOLID dentro del archivo
 const TechBadge = ({
   label,
   className,
@@ -119,7 +118,7 @@ const TechBadge = ({
 }) => (
   <motion.div
     whileHover={{ scale: 1.1 }}
-    className={`absolute px-4 py-2 rounded-lg text-white font-bold text-sm shadow-xl ${className}`}
+    className={`absolute z-20 px-4 py-2 rounded-lg text-white font-bold text-sm shadow-xl ${className}`}
   >
     {label}
   </motion.div>
