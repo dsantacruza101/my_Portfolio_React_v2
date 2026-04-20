@@ -44,7 +44,10 @@ export const Hero = () => {
               {t("hero.description")}
             </p>
             <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
-              <button className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-1">
+              <button
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-1"
+              >
                 {t("hero.cta_projects")}
               </button>
               <div className="flex items-center gap-3 ml-2">

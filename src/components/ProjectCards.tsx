@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { GitBranch, ExternalLink } from 'lucide-react';
 import type { Project } from '../types/project';
 export const ProjectCard = ({ project }: { project: Project }) => {
   return (
@@ -36,10 +36,10 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           ))}
         </div>
         <div className="flex gap-4">
-          <a href={project.githubUrl} className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
-            <Github size={18} /> Code
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
+            <GitBranch size={18} /> Code
           </a>
-          <a href={project.demoUrl} className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
+          <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
             <ExternalLink size={18} /> Demo
           </a>
         </div>

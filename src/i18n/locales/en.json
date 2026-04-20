@@ -28,6 +28,7 @@
   },
   "projects": {
     "title": "Featured Projects",
+    "techtrack_desc": "Web app for schools to track and manage technology assets across multiple campuses. Features role-based access, work orders, IT tickets, inventory, finance reports, and QR code generation per asset.",
     "ai_desc": "Intelligent query system using RAG and Llama 3 for document analysis.",
     "micro_desc": "Scalable microservices architecture for consular traffic management."
   },

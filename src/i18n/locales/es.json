@@ -28,6 +28,7 @@
   },
   "projects": {
     "title": "Proyectos Destacados",
+    "techtrack_desc": "Aplicación web para escuelas que permite rastrear y gestionar activos tecnológicos en múltiples campus. Incluye acceso por roles, órdenes de trabajo, tickets de TI, inventario, informes financieros y generación de códigos QR por activo.",
     "ai_desc": "Sistema de consulta inteligente usando RAG y modelos Llama 3 para análisis documental.",
     "micro_desc": "Arquitectura de microservicios escalable para gestión de tráfico consular."
   },

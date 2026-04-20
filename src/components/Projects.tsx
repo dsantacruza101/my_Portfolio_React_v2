@@ -6,11 +6,12 @@ export const Projects = () => {
   const projects: Project[] = [
     {
       id: '1',
-      title: 'AI RAG Explorer',
-      description: t('projects.ai_desc'),
-      tags: ['React', 'FastAPI', 'Llama 3', 'LangChain'],
-      image: '/projects/ai-rag.jpg',
-      isWip: true
+      title: 'TechTrackApp',
+      description: t('projects.techtrack_desc'),
+      tags: ['React 19', 'TypeScript', 'Firebase', 'PrimeReact', 'Vite'],
+      image: '/projects/techtrackapp.png',
+      demoUrl: 'https://techtrack-portfolio-demo.web.app',
+      githubUrl: 'https://github.com/dsantacruza101/techTrack-app',
     },
     {
       id: '2',
