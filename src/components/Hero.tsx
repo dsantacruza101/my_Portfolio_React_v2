@@ -95,7 +95,7 @@ export const Hero = () => {
               className="bottom-20 -right-5 bg-blue-500"
             />
             <TechBadge
-              label="Kubernetes"
+              label="Docker"
               className="-bottom-5 left-20 bg-blue-700"
             />
           </div>
