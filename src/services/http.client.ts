@@ -1,23 +1,48 @@
 type RequestOptions = Omit<RequestInit, 'body'> & { body?: unknown };
 
+interface RequestContext {
+  url: string;
+  options: RequestOptions;
+}
+
+type RequestInterceptor = (ctx: RequestContext) => RequestContext;
+
 class HttpClient {
   private readonly baseUrl: string;
+  private readonly requestInterceptors: RequestInterceptor[] = [];
 
   constructor() {
-    this.baseUrl = `${import.meta.env.VITE_API_BASE_URL}/api`;
+    this.baseUrl = import.meta.env.VITE_API_BASE_URL as string;
+    this.registerDefaultInterceptors();
+  }
+
+  addRequestInterceptor(interceptor: RequestInterceptor): this {
+    this.requestInterceptors.push(interceptor);
+    return this;
+  }
+
+  private registerDefaultInterceptors() {
+    this.addRequestInterceptor((ctx) => ({
+      ...ctx,
+      url: `/api${ctx.url}`,
+    }));
   }
 
   async request<T = void>(path: string, options: RequestOptions = {}): Promise<T> {
     const { body, headers, ...rest } = options;
 
-    const response = await fetch(`${this.baseUrl}${path}`, {
-      ...rest,
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers,
+    let ctx: RequestContext = {
+      url: path,
+      options: {
+        ...rest,
+        headers: { 'Content-Type': 'application/json', ...headers },
+        body: body !== undefined ? JSON.stringify(body) : undefined,
       },
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-    });
+    };
+
+    ctx = this.requestInterceptors.reduce((c, interceptor) => interceptor(c), ctx);
+
+    const response = await fetch(`${this.baseUrl}${ctx.url}`, ctx.options as RequestInit);
 
     if (!response.ok) {
       const error = await response.json().catch(() => null) as { message?: string } | null;
