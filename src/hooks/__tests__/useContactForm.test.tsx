@@ -22,7 +22,15 @@ vi.mock('react-i18next', () => ({
 }));
 
 function TestForm() {
-  const { register, handleSubmit, errors, isSubmitting } = useContactForm();
+  const {
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    onCaptchaVerify,
+    cooldown,
+  } = useContactForm();
+
   return (
     <form onSubmit={handleSubmit}>
       <input {...register('name')} placeholder="name" />
@@ -33,12 +41,17 @@ function TestForm() {
       {errors.subject && <span role="alert">{errors.subject.message}</span>}
       <textarea {...register('message')} placeholder="message" />
       {errors.message && <span role="alert">{errors.message.message}</span>}
-      <button type="submit" disabled={isSubmitting}>send</button>
+      <button type="button" onClick={() => onCaptchaVerify('test-captcha-token')}>
+        verify captcha
+      </button>
+      <button type="submit" disabled={isSubmitting || cooldown}>
+        send
+      </button>
     </form>
   );
 }
 
-async function fillAndSubmit(overrides: Record<string, string> = {}) {
+async function fillForm(overrides: Record<string, string> = {}) {
   const user = userEvent.setup();
   const values = {
     name: 'Daniel Santacruz',
@@ -51,7 +64,7 @@ async function fillAndSubmit(overrides: Record<string, string> = {}) {
   await user.type(screen.getByPlaceholderText('email'), values.email);
   await user.type(screen.getByPlaceholderText('subject'), values.subject);
   await user.type(screen.getByPlaceholderText('message'), values.message);
-  await user.click(screen.getByRole('button', { name: 'send' }));
+  return user;
 }
 
 beforeEach(() => {
@@ -60,10 +73,17 @@ beforeEach(() => {
 });
 
 describe('useContactForm', () => {
-  it('calls contactService.sendMessage with form data on valid submit', async () => {
-    vi.mocked(contactService.sendMessage).mockResolvedValue(undefined);
+  it('returns the expected API shape', () => {
+    expect(screen.getByPlaceholderText('name')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'send' })).toBeInTheDocument();
+  });
 
-    await fillAndSubmit();
+  it('calls contactService.sendMessage with form data and captcha token on valid submit', async () => {
+    vi.mocked(contactService.sendMessage).mockResolvedValue(undefined);
+    const user = await fillForm();
+
+    await user.click(screen.getByRole('button', { name: 'verify captcha' }));
+    await user.click(screen.getByRole('button', { name: 'send' }));
 
     await waitFor(() => {
       expect(contactService.sendMessage).toHaveBeenCalledWith({
@@ -71,28 +91,44 @@ describe('useContactForm', () => {
         email: 'daniel@example.com',
         subject: 'Hello there',
         message: 'This is a long enough test message',
+        captchaToken: 'test-captcha-token',
       });
     });
   });
 
+  it('shows an error toast when captcha is not verified', async () => {
+    vi.mocked(contactService.sendMessage).mockResolvedValue(undefined);
+    const user = await fillForm();
+
+    await user.click(screen.getByRole('button', { name: 'send' }));
+
+    await waitFor(() => expect(toast.error).toHaveBeenCalled());
+    expect(contactService.sendMessage).not.toHaveBeenCalled();
+  });
+
   it('shows a success toast when sendMessage resolves', async () => {
     vi.mocked(contactService.sendMessage).mockResolvedValue(undefined);
+    const user = await fillForm();
 
-    await fillAndSubmit();
+    await user.click(screen.getByRole('button', { name: 'verify captcha' }));
+    await user.click(screen.getByRole('button', { name: 'send' }));
 
     await waitFor(() => expect(toast.success).toHaveBeenCalled());
   });
 
   it('shows an error toast when sendMessage rejects', async () => {
     vi.mocked(contactService.sendMessage).mockRejectedValue(new Error('Network error'));
+    const user = await fillForm();
 
-    await fillAndSubmit();
+    await user.click(screen.getByRole('button', { name: 'verify captcha' }));
+    await user.click(screen.getByRole('button', { name: 'send' }));
 
     await waitFor(() => expect(toast.error).toHaveBeenCalled());
   });
 
-  it('shows validation errors when required fields are too short', async () => {
+  it('shows validation errors and does not call the service when fields are invalid', async () => {
     const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: 'verify captcha' }));
     await user.click(screen.getByRole('button', { name: 'send' }));
 
     await waitFor(() => {

@@ -5,9 +5,10 @@ interface RequestContext {
   options: RequestOptions;
 }
 
+/** A function that receives and transforms a request context before it is fetched. */
 type RequestInterceptor = (ctx: RequestContext) => RequestContext;
 
-class HttpClient {
+export class HttpClient {
   private readonly baseUrl: string;
   private readonly requestInterceptors: RequestInterceptor[] = [];
 
@@ -16,6 +17,11 @@ class HttpClient {
     this.registerDefaultInterceptors();
   }
 
+  /**
+   * Registers a request interceptor applied to every outgoing request.
+   * Interceptors run in registration order and can modify the URL or options.
+   * @returns The client instance for chaining.
+   */
   addRequestInterceptor(interceptor: RequestInterceptor): this {
     this.requestInterceptors.push(interceptor);
     return this;
@@ -28,6 +34,13 @@ class HttpClient {
     }));
   }
 
+  /**
+   * Executes an HTTP request after running all registered interceptors.
+   * Automatically sets `Content-Type: application/json` and serializes the body.
+   * Throws on non-2xx responses, using the server's `message` field when available.
+   * @param path - Path relative to the base URL (e.g. `/portfolio/contact-me`).
+   * @param options - Fetch options; `body` is serialized to JSON automatically.
+   */
   async request<T = void>(path: string, options: RequestOptions = {}): Promise<T> {
     const { body, headers, ...rest } = options;
 
@@ -53,10 +66,19 @@ class HttpClient {
     return (text ? JSON.parse(text) : undefined) as T;
   }
 
+  /**
+   * Sends a GET request to the given path.
+   * @param path - Path relative to the base URL.
+   */
   get<T = void>(path: string, options?: Omit<RequestOptions, 'body'>) {
     return this.request<T>(path, { ...options, method: 'GET' });
   }
 
+  /**
+   * Sends a POST request with an optional JSON body.
+   * @param path - Path relative to the base URL.
+   * @param body - Value to serialize as the request body.
+   */
   post<T = void>(path: string, body?: unknown, options?: RequestOptions) {
     return this.request<T>(path, { ...options, method: 'POST', body });
   }

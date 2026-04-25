@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { GithubIcon, Linkedin, Terminal } from "lucide-react";
 import profilePic from "../assets/images/portfolio_01.png";
+/** Full-viewport hero section with profile photo, intro text, and social links. */
 export const Hero = () => {
   const { t } = useTranslation();
   return (
@@ -104,6 +105,11 @@ export const Hero = () => {
     </section>
   );
 };
+/**
+ * Floating badge overlaid on the profile photo to highlight a technology.
+ * @param label - Technology name to display.
+ * @param className - Tailwind classes for positioning and background color.
+ */
 const TechBadge = ({
   label,
   className,

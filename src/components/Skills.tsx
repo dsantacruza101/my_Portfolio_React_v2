@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SKILL_CATEGORIES } from '../data/data';
+/** Skills section displaying categorized technology badges from SKILL_CATEGORIES. */
 export const Skills = () => {
   const { t } = useTranslation();
   return (

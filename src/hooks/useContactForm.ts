@@ -18,6 +18,14 @@ export type ContactFormData = z.infer<typeof contactSchema>;
 
 const COOLDOWN_MS = 30_000;
 
+/**
+ * Manages the contact form state, validation, captcha verification, and submission.
+ *
+ * Enforces a 30-second cooldown after a successful send to prevent rapid resubmission.
+ * The captcha token must be set via `onCaptchaVerify` before submission is allowed.
+ *
+ * @returns Form controls, captcha handlers, and submission state.
+ */
 export function useContactForm() {
   const { t } = useTranslation();
   const captchaRef = useRef<HCaptcha>(null);
@@ -33,6 +41,7 @@ export function useContactForm() {
     resolver: zodResolver(contactSchema),
   });
 
+  /** Resets the captcha widget and clears the stored token. */
   const resetCaptcha = () => {
     captchaRef.current?.resetCaptcha();
     setCaptchaToken(null);
@@ -62,13 +71,19 @@ export function useContactForm() {
 
   return {
     register,
+    /** Bound submit handler — pass directly to `<form onSubmit>`. */
     handleSubmit: handleSubmit(onSubmit),
     errors,
+    /** `true` while the form submission is in flight. */
     isSubmitting,
+    /** Ref forwarded to the HCaptcha widget for programmatic reset. */
     captchaRef,
+    /** Call with the token emitted by the HCaptcha `onVerify` event. */
     onCaptchaVerify: setCaptchaToken,
+    /** Call when the HCaptcha token expires to invalidate the stored token. */
     onCaptchaExpire: () => setCaptchaToken(null),
     captchaToken,
+    /** `true` during the 30-second cooldown after a successful send. */
     cooldown,
   };
 }

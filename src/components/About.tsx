@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import aboutImage from '../assets/images/portfolio_02.png';
 
+/** About section with profile image, bio, and experience/education highlights. */
 export const About = () => {
   const { t } = useTranslation();
   return (
@@ -89,6 +90,13 @@ export const About = () => {
   );
 };
 
+/**
+ * Animated card showing a single experience or education highlight.
+ * @param icon - Lucide icon element.
+ * @param title - Label displayed above the detail (e.g. "Experience").
+ * @param detail - Main value (e.g. "MRE El Salvador").
+ * @param delay - Framer Motion entrance delay in seconds.
+ */
 const AboutItem = ({
   icon,
   title,

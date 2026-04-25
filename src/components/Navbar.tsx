@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Sun, Moon, Languages } from "lucide-react";
+/**
+ * Fixed navigation bar with dark mode toggle and EN/ES language switcher.
+ * Persists the theme preference to `localStorage` and applies the `dark` class
+ * to `<html>` so Tailwind dark-mode utilities take effect globally.
+ */
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
   const [isDark, setIsDark] = useState(() => {
@@ -20,6 +25,7 @@ export const Navbar = () => {
       localStorage.setItem("theme", "light"); 
     }
   }, [isDark]);
+  /** Toggles between English and Spanish, defaulting to English for any non-Spanish locale. */
   const toggleLanguage = () => {
     i18n.changeLanguage(i18n.language.includes("es") ? "en" : "es");
   };

@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 
+/**
+ * Tracks the current dark mode state by reading the initial preference from
+ * `localStorage` and `prefers-color-scheme`, then observing class changes on
+ * `<html>` via `MutationObserver` to stay in sync with Navbar's theme toggle.
+ *
+ * @returns `true` when dark mode is active.
+ */
 export function useDarkMode() {
   const [isDark, setIsDark] = useState(
     () =>

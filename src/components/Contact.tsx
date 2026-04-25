@@ -5,6 +5,11 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useContactForm } from "../hooks/useContactForm";
 import { useDarkMode } from "../hooks/useDarkMode";
 
+/**
+ * Contact section with a validated form, hCaptcha widget, and a 30-second
+ * cooldown after a successful send. Theme (light/dark) is applied to the
+ * captcha widget reactively via `useDarkMode`.
+ */
 export const Contact = () => {
   const { t } = useTranslation();
   const isDark = useDarkMode();

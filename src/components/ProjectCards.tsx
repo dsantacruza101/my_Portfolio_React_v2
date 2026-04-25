@@ -6,6 +6,11 @@ import {
 } from 'lucide-react';
 import type { Project } from '../types';
 
+/**
+ * Card displaying a single project with its image (or a WIP placeholder),
+ * technology tags, and optional GitHub/Demo links.
+ * Shows an amber "WIP" badge when `project.isWip` is true.
+ */
 export const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <motion.div 

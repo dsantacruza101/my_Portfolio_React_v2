@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { ProjectCard } from './ProjectCards';
 import type { Project } from '../types';
 
+/** Featured projects section rendering a grid of ProjectCard components. */
 export const Projects = () => {
   const { t } = useTranslation();
   const projects: Project[] = [
