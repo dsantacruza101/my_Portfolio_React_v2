@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Award, Briefcase, GraduationCap } from "lucide-react";
+import { 
+  Award, 
+  Briefcase, 
+  GraduationCap 
+} from "lucide-react";
 import aboutImage from '../assets/images/portfolio_02.png';
+
 export const About = () => {
   const { t } = useTranslation();
   return (
@@ -35,7 +40,7 @@ export const About = () => {
               transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.5 }}
               className="absolute -bottom-6 -right-6 bg-blue-600 p-6 rounded-2xl shadow-2xl z-20 hidden md:block border-4 border-white dark:border-slate-900"
             >
-              <p className="text-white font-black text-3xl">+5</p>
+              <p className="text-white font-black text-3xl">+4</p>
               <p className="text-blue-100 text-[10px] uppercase font-black tracking-tighter">
                 {t("about.years_exp")}
               </p>
@@ -83,6 +88,7 @@ export const About = () => {
     </motion.section>
   );
 };
+
 const AboutItem = ({
   icon,
   title,

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { ProjectCard } from './ProjectCards';
-import type { Project } from '../types/project';
+import type { Project } from '../types';
+
 export const Projects = () => {
   const { t } = useTranslation();
   const projects: Project[] = [
@@ -17,8 +18,8 @@ export const Projects = () => {
       id: '2',
       title: 'Microservices Gateway',
       description: t('projects.micro_desc'),
-      tags: ['NestJS', 'Kubernetes', 'Redis'],
-      image: '/projects/micro.jpg',
+      tags: ['NestJS', 'Microservices'],
+      isWip: true,
     }
   ];
   return (

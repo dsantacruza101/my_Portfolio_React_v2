@@ -12,7 +12,7 @@
   },
   "about": {
     "title": "Sobre Mí",
-    "description": "Soy un apasionado de la tecnología con más de 5 años de trayectoria transformando procesos complejos en soluciones digitales eficientes. Mi enfoque combina la robustez del backend con experiencias de usuario intuitivas, siempre priorizando la escalabilidad y las buenas prácticas de ingeniería.",
+    "description": "Soy un apasionado de la tecnología con más de 4 años de trayectoria transformando procesos complejos en soluciones digitales eficientes. Mi enfoque combina la robustez del backend con experiencias de usuario intuitivas, siempre priorizando la escalabilidad y las buenas prácticas de ingeniería.",
     "years_exp": "Años de Experiencia",
     "experience": "Experiencia",
     "specialty": "Especialidad",
@@ -42,6 +42,8 @@
     "send": "Enviar Mensaje",
     "sending": "Enviando...",
     "success": "¡Mensaje enviado con éxito!",
+    "captcha_required": "Por favor completa el captcha antes de enviar.",
+    "cooldown": "Espera un momento antes de enviar de nuevo.",
     "errors": {
       "name_error": "El nombre debe tener al menos 3 caracteres",
       "email_error": "Ingresa un correo electrónico válido",

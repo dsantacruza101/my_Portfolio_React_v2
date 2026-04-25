@@ -1,12 +1,26 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { Send, Mail, User, MessageSquare } from "lucide-react";
+import { Send, Mail, User, MessageSquare, Clock } from "lucide-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useContactForm } from "../hooks/useContactForm";
+import { useDarkMode } from "../hooks/useDarkMode";
 
 export const Contact = () => {
   const { t } = useTranslation();
-  const { register, handleSubmit, errors, isSubmitting } = useContactForm();
-  
+  const isDark = useDarkMode();
+  const {
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    captchaRef,
+    onCaptchaVerify,
+    onCaptchaExpire,
+    cooldown,
+  } = useContactForm();
+
+  const isDisabled = isSubmitting || cooldown;
+
   return (
     <section
       id="contact"
@@ -25,7 +39,6 @@ export const Contact = () => {
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800"
         >
-          {}
           <div className="space-y-2">
             <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
               <User size={16} /> {t("contact.name")}
@@ -41,7 +54,7 @@ export const Contact = () => {
               </p>
             )}
           </div>
-          {}
+
           <div className="space-y-2">
             <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
               <Mail size={16} /> {t("contact.email")}
@@ -57,7 +70,7 @@ export const Contact = () => {
               </p>
             )}
           </div>
-          {}
+
           <div className="md:col-span-2 space-y-2">
             <label className="text-sm font-bold text-slate-700 dark:text-slate-300">
               {t("contact.subject")}
@@ -72,7 +85,7 @@ export const Contact = () => {
               </p>
             )}
           </div>
-          {}
+
           <div className="md:col-span-2 space-y-2">
             <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
               <MessageSquare size={16} /> {t("contact.message")}
@@ -81,19 +94,34 @@ export const Contact = () => {
               {...register("message")}
               rows={4}
               className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 ring-blue-500 outline-none transition-all dark:text-white"
-            ></textarea>
+            />
             {errors.message && (
               <p className="text-red-500 text-xs font-bold">
                 {t(`contact.errors.${errors.message.message}`)}
               </p>
             )}
           </div>
+
+          <div className="md:col-span-2 flex justify-center">
+            <HCaptcha
+              sitekey={import.meta.env.VITE_HCAPTCHA_SITE_KEY}
+              ref={captchaRef}
+              onVerify={onCaptchaVerify}
+              onExpire={onCaptchaExpire}
+              theme={isDark ? "dark" : "light"}
+            />
+          </div>
+
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="md:col-span-2 py-4 bg-linear-to-r from-blue-600 to-teal-500 text-white rounded-xl font-black flex items-center justify-center gap-3 hover:opacity-90 transition-all disabled:opacity-50"
+            disabled={isDisabled}
+            className="md:col-span-2 py-4 bg-linear-to-r from-blue-600 to-teal-500 text-white rounded-xl font-black flex items-center justify-center gap-3 hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? (
+            {cooldown ? (
+              <>
+                <Clock size={20} /> {t("contact.cooldown")}
+              </>
+            ) : isSubmitting ? (
               t("contact.sending")
             ) : (
               <>

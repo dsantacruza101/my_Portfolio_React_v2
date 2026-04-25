@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
-import { GitBranch, ExternalLink } from 'lucide-react';
-import type { Project } from '../types/project';
+import {
+  GitBranch,
+  ExternalLink,
+  Construction,
+} from 'lucide-react';
+import type { Project } from '../types';
+
 export const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <motion.div 
@@ -8,11 +13,18 @@ export const ProjectCard = ({ project }: { project: Project }) => {
       className="group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-lg"
     >
       <div className="aspect-video overflow-hidden">
-        <img 
-          src={project.image} 
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        ) : (
+          <div className="w-full h-full bg-linear-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 flex flex-col items-center justify-center gap-2">
+            <Construction size={32} className="text-amber-400" />
+            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Coming Soon</span>
+          </div>
+        )}
       </div>
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
@@ -36,12 +48,16 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           ))}
         </div>
         <div className="flex gap-4">
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
-            <GitBranch size={18} /> Code
-          </a>
-          <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
-            <ExternalLink size={18} /> Demo
-          </a>
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
+              <GitBranch size={18} /> Code
+            </a>
+          )}
+          {project.demoUrl && (
+            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-500">
+              <ExternalLink size={18} /> Demo
+            </a>
+          )}
         </div>
       </div>
     </motion.div>

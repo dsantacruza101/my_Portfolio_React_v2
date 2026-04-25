@@ -1,7 +1,7 @@
 export const SKILL_CATEGORIES = [
   {
     id: 'frontend',
-    skills: ['React', 'Angular', 'TypeScript', 'Tailwind CSS', 'Next.js']
+    skills: ['React', 'Angular', 'TypeScript', 'PrimeFlex', 'PrimeFaces']
   },
   {
     id: 'backend',
@@ -9,6 +9,6 @@ export const SKILL_CATEGORIES = [
   },
   {
     id: 'devops',
-    skills: ['Kubernetes', 'Docker', 'GCP', 'GitHub Actions']
+    skills: ['Docker', 'GCP', 'AWS', 'GitHub Actions']
   }
 ];

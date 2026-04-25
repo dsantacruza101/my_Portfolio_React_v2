@@ -12,7 +12,7 @@
   },
   "about": {
     "title": "About Me",
-    "description": "I am passionate about technology with over 5 years of experience transforming complex processes into efficient digital solutions. My approach combines backend robustness with intuitive user experiences, always prioritizing scalability and engineering best practices.",
+    "description": "I am passionate about technology with over 4 years of experience transforming complex processes into efficient digital solutions. My approach combines backend robustness with intuitive user experiences, always prioritizing scalability and engineering best practices.",
     "years_exp": "Years of Experience",
     "experience": "Experience",
     "specialty": "Specialty",
@@ -42,6 +42,8 @@
     "send": "Send Message",
     "sending": "Sending...",
     "success": "Message sent successfully!",
+    "captcha_required": "Please complete the captcha before sending.",
+    "cooldown": "Please wait before sending again.",
     "errors": {
       "name_error": "Name must be at least 3 characters",
       "email_error": "Please enter a valid email address",

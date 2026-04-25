@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   tags: string[];
-  image: string;
+  image?: string;
   githubUrl?: string;
   demoUrl?: string;
   isWip?: boolean; 
