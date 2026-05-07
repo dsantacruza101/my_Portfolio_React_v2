@@ -24,7 +24,7 @@ export const Hero = () => {
       {}
       <div className="absolute top-1/4 -left-20 w-72 h-72 bg-blue-500/20 rounded-full blur-[120px] dark:bg-blue-600/10" />
       <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-teal-500/20 rounded-full blur-[120px] dark:bg-teal-600/10" />
-      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-12">
+      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12">
         {}
         <div className="flex-1 text-center md:text-left">
           <motion.div
@@ -36,16 +36,16 @@ export const Hero = () => {
               <Terminal size={16} />
               <span>{t("hero.role")}</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1]">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1]">
               Daniel <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-400">
                 Santacruz
               </span>
             </h1>
-            <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+            <p className="mt-3 sm:mt-6 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
               {t("hero.description")}
             </p>
-            <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
+            <div className="mt-5 sm:mt-10 flex flex-wrap justify-center md:justify-start gap-4">
               <button
                 onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-1"
@@ -78,7 +78,7 @@ export const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="relative w-72 h-72 md:w-112.5 md:h-112.5 mx-auto">
+          <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-112.5 md:h-112.5 mx-auto">
             {}
             <div className="absolute inset-0 rounded-full border-2 border-dashed border-slate-200 dark:border-slate-800 animate-[spin_20s_linear_infinite]" />
             {}
