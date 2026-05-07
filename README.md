@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# Daniel Santacruz — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website built with React, TypeScript, Tailwind CSS, and Vite. It showcases projects, skills, and a contact form, and supports both light/dark mode and multiple languages.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## What's inside
 
-## React Compiler
+- **Hero** — introduction and call-to-action
+- **About** — background and experience summary
+- **Skills** — technology stack overview
+- **Projects** — cards linking to live demos and source code
+- **Contact** — form with hCaptcha protection that sends messages directly
+- **Navbar** — smooth-scroll navigation with dark mode and language toggle (i18n)
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+---
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Git](https://git-scm.com/)
+- [Docker](https://www.docker.com/) + Docker Compose
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Clone the repository**
+
+   git clone <repo-url>
+   cd my_Portfolio_React_v2
+
+2. **Set up environment variables**
+
+   Copy the provided template and fill in your values:
+
+   cp .env.template .env
+
+   Open `.env` and replace the placeholder values (e.g. your hCaptcha site key).
+
+3. **Initialize submodules**
+
+   git submodule update --init --recursive
+
+4. **Build and run with Docker**
+
+   docker compose up --build
+
+   The app will be available at `http://localhost:8080`.
+
+To stop the container:
+
+docker compose down
+
+---
+
+## Building for production
+
+npm run build
+
+The optimized output goes into the `dist/` folder, ready to be served by any static host (Netlify, Vercel, Nginx, etc.).
+
+To preview the production build locally:
+
+npm run preview
+
+---
+
+## Running tests
+
+# Run all tests
+npm test
+
+# Run tests with a coverage report
+npm run test:coverage
+
+---
+
+## Project structure
+
+```
+src/
+├── components/     # Page sections (Hero, About, Skills, Projects, Contact, Navbar)
+├── data/           # Static content (projects list, skills, etc.)
+├── hooks/          # Custom React hooks
+├── i18n/           # Internationalization config and locale files
+├── services/       # API/form submission logic
+├── types/          # TypeScript type definitions
+└── test/           # Test utilities and setup
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tech stack
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Tool | Purpose |
+|---|---|
+| React 19 | UI framework |
+| TypeScript | Type safety |
+| Vite | Dev server & bundler |
+| Tailwind CSS v4 | Styling |
+| Framer Motion | Animations |
+| react-hook-form + Zod | Form validation |
+| hCaptcha | Spam protection on the contact form |
+| i18next | Internationalization |
+| Vitest | Unit testing |
+| Docker + Nginx | Production container |
