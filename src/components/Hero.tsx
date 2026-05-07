@@ -9,21 +9,22 @@ export const Hero = () => {
     <section
       id="home"
       className="
-        relative 
-        w-full 
-        min-h-screen 
-        flex 
-        items-center 
-        justify-center 
+        relative
+        w-full
+        min-h-screen
+        pt-16
+        flex
+        items-center
+        justify-center
         overflow-hidden
-        bg-white 
+        bg-white
         dark:bg-slate-900"
     >
       {" "}
       {}
       <div className="absolute top-1/4 -left-20 w-72 h-72 bg-blue-500/20 rounded-full blur-[120px] dark:bg-blue-600/10" />
       <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-teal-500/20 rounded-full blur-[120px] dark:bg-teal-600/10" />
-      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-12">
+      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-12">
         {}
         <div className="flex-1 text-center md:text-left">
           <motion.div
