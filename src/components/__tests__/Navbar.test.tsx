@@ -35,7 +35,7 @@ describe('Navbar', () => {
     const user = userEvent.setup();
     render(<Navbar />);
 
-    const themeButton = screen.getByRole('button', { name: '' });
+    const themeButton = screen.getAllByRole('button', { name: 'Toggle dark mode' })[0];
     await user.click(themeButton);
 
     expect(document.documentElement.classList.contains('dark')).toBe(true);
@@ -48,7 +48,7 @@ describe('Navbar', () => {
     const user = userEvent.setup();
     render(<Navbar />);
 
-    const themeButton = screen.getByRole('button', { name: '' });
+    const themeButton = screen.getAllByRole('button', { name: 'Toggle dark mode' })[0];
     await user.click(themeButton);
 
     expect(document.documentElement.classList.contains('dark')).toBe(false);

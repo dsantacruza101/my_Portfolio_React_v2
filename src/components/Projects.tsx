@@ -22,6 +22,13 @@ export const Projects = () => {
       tags: ['NestJS', 'TypeScript', 'NATS', 'NodeJs', 'Docker', 'Caddy'],
       image: '/projects/portfolioAPI.png',
       githubUrl: 'https://github.com/dsantacruza101/portfolioServiceLauncher'
+    },
+    {
+      id: '3',
+      title: 'Chat with IA + RAG',
+      description: t('projects.ai_desc'),
+      tags: ['Python', 'FastAPI', 'RAG', 'Llama 3', 'Docker'],
+      isWip: true,
     }
   ];
   return (

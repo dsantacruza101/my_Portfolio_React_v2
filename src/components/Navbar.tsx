@@ -71,6 +71,7 @@ export const Navbar = () => {
               </span>
             </button>
             <button
+              aria-label="Toggle dark mode"
               onClick={() => setIsDark(!isDark)}
               className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
             >
@@ -91,6 +92,7 @@ export const Navbar = () => {
             </span>
           </button>
           <button
+            aria-label="Toggle dark mode"
             onClick={() => setIsDark(!isDark)}
             className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
           >
