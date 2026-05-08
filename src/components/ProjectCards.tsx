@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   GitBranch,
   ExternalLink,
@@ -12,6 +13,7 @@ import type { Project } from '../types';
  * Shows an amber "WIP" badge when `project.isWip` is true.
  */
 export const ProjectCard = ({ project }: { project: Project }) => {
+  const [expanded, setExpanded] = useState(false);
   return (
     <motion.div 
       whileHover={{ y: -10 }}
@@ -42,9 +44,22 @@ export const ProjectCard = ({ project }: { project: Project }) => {
             </span>
           )}
         </div>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
-          {project.description}
-        </p>
+        <div className="mb-4">
+          <AnimatePresence initial={false}>
+            <motion.p
+              className={`text-slate-600 dark:text-slate-400 text-sm overflow-hidden ${!expanded ? 'line-clamp-2' : ''}`}
+              animate={{ height: 'auto' }}
+            >
+              {project.description}
+            </motion.p>
+          </AnimatePresence>
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="mt-1 text-xs font-bold text-blue-500 hover:text-blue-600 transition-colors"
+          >
+            {expanded ? 'Read less' : 'Show more'}
+          </button>
+        </div>
         <div className="flex flex-wrap gap-2 mb-6">
           {project.tags.map(tag => (
             <span key={tag} className="text-[11px] px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded">
