@@ -1,6 +1,6 @@
 # Daniel Santacruz — Portfolio
 
-A personal portfolio website built with React, TypeScript, Tailwind CSS, and Vite. It showcases projects, skills, and a contact form, and supports both light/dark mode and multiple languages.
+A personal portfolio website built with React, TypeScript, Tailwind CSS, and Vite. It showcases projects, skills, and a contact form, with support for dark mode and English/Spanish languages.
 
 ---
 
@@ -10,8 +10,8 @@ A personal portfolio website built with React, TypeScript, Tailwind CSS, and Vit
 - **About** — background and experience summary
 - **Skills** — technology stack overview
 - **Projects** — cards linking to live demos and source code
-- **Contact** — form with hCaptcha protection that sends messages directly
-- **Navbar** — smooth-scroll navigation with dark mode and language toggle (i18n)
+- **Contact** — form with hCaptcha spam protection
+- **Navbar** — smooth-scroll navigation with dark mode and language toggle
 
 ---
 
@@ -26,52 +26,44 @@ A personal portfolio website built with React, TypeScript, Tailwind CSS, and Vit
 
 1. **Clone the repository**
 
+   ```bash
    git clone <repo-url>
    cd my_Portfolio_React_v2
+   ```
 
 2. **Set up environment variables**
 
-   Copy the provided template and fill in your values:
-
+   ```bash
    cp .env.template .env
+   ```
 
-   Open `.env` and replace the placeholder values (e.g. your hCaptcha site key).
+   Open `.env` and fill in your values (e.g. your hCaptcha site key).
 
-3. **Initialize submodules**
+3. **Build and run**
 
-   git submodule update --init --recursive
-
-4. **Build and run with Docker**
-
+   ```bash
    docker compose up --build
+   ```
 
    The app will be available at `http://localhost:8080`.
 
 To stop the container:
 
+```bash
 docker compose down
-
----
-
-## Building for production
-
-npm run build
-
-The optimized output goes into the `dist/` folder, ready to be served by any static host (Netlify, Vercel, Nginx, etc.).
-
-To preview the production build locally:
-
-npm run preview
+```
 
 ---
 
 ## Running tests
 
+```bash
 # Run all tests
 npm test
 
-# Run tests with a coverage report
+# Run with coverage report
 npm run test:coverage
+```
 
 ---
 

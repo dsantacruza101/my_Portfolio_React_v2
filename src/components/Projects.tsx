@@ -17,10 +17,11 @@ export const Projects = () => {
     },
     {
       id: '2',
-      title: 'Microservices Gateway',
+      title: 'Portfolio Conctact API',
       description: t('projects.micro_desc'),
-      tags: ['NestJS', 'Microservices'],
-      isWip: true,
+      tags: ['NestJS', 'TypeScript', 'NATS', 'NodeJs', 'Docker', 'Caddy'],
+      image: '/projects/portfolioAPI.png',
+      githubUrl: 'https://github.com/dsantacruza101/portfolioServiceLauncher'
     }
   ];
   return (
