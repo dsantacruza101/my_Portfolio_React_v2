@@ -73,7 +73,7 @@ export const About = () => {
               <AboutItem
                 icon={<Award size={20} />}
                 title={t("about.specialty")}
-                detail="AI & Microservices"
+                detail="Full Stack Developer"
                 delay={0.5}
               />
               <AboutItem
