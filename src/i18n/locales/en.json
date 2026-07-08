@@ -2,7 +2,8 @@
   "hero": {
     "role": "SYSTEMS ENGINEER",
     "description": "Expert in designing modern architectures and delivering high-performance solutions tailored to specific business needs. Proven track record of modernizing complex systems and building scalable, secure software for government and private sectors.",
-    "cta_projects": "View Projects"
+    "cta_projects": "View Projects",
+    "cta_download": "Download Resume"
   },
   "nav": {
     "about": "About Me",

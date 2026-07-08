@@ -1,10 +1,21 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { GithubIcon, Linkedin, Terminal } from "lucide-react";
+import { GithubIcon, Linkedin, Terminal, Download } from "lucide-react";
 import profilePic from "../assets/images/portfolio_01.png";
 /** Full-viewport hero section with profile photo, intro text, and social links. */
 export const Hero = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const resumeFile = i18n.language.startsWith("es")
+    ? "/CV_Daniel_Santacruz_ES_v3.pdf"
+    : "/Resume_Daniel_Santacruz_EN_v3.pdf";
+
+  /** Creates a temporary anchor element and programmatically triggers a PDF download for the locale-appropriate resume file. */
+  const handleDownload = () => {
+    const a = document.createElement("a");
+    a.href = resumeFile;
+    a.download = resumeFile.split("/").pop() ?? "resume.pdf";
+    a.click();
+  };
   return (
     <section
       id="home"
@@ -51,6 +62,13 @@ export const Hero = () => {
                 className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-1"
               >
                 {t("hero.cta_projects")}
+              </button>
+              <button
+                onClick={handleDownload}
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all hover:-translate-y-1"
+              >
+                <Download size={18} />
+                {t("hero.cta_download")}
               </button>
               <div className="flex items-center gap-3 ml-2">
                 <a

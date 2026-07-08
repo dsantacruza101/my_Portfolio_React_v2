@@ -2,7 +2,8 @@
   "hero": {
     "role": "INGENIEIRO DE SISTEMAS",
     "description": "Experto en el diseño de arquitecturas modernas y la entrega de soluciones de alto rendimiento alineadas a las necesidades del negocio. Trayectoria comprobada modernizando sistemas complejos y construyendo software escalable y seguro para el sector público y privado.",
-    "cta_projects": "Ver Proyectos"
+    "cta_projects": "Ver Proyectos",
+    "cta_download": "Descargar CV"
   },
   "nav": {
     "about": "Sobre mí",

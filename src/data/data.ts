@@ -1,3 +1,4 @@
+/** Skill categories rendered in the Skills section; each `id` maps to a `skills.categories.*` translation key. */
 export const SKILL_CATEGORIES = [
   {
     id: 'frontend',
