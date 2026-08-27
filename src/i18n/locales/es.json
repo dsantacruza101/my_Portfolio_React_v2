@@ -51,5 +51,14 @@
       "subject_error": "El asunto es demasiado corto",
       "message_error": "Cuéntame un poco más (mínimo 10 caracteres)"
     }
+  },
+  "chat": {
+    "open": "Abrir chat",
+    "close": "Cerrar chat",
+    "title": "Pregunta sobre Daniel",
+    "greeting": "¿Qué te gustaría saber sobre Daniel Santacruz?",
+    "placeholder": "Escribe tu pregunta...",
+    "send": "Enviar",
+    "error": "Algo salió mal. Inténtalo de nuevo."
   }
 }

@@ -1,0 +1,43 @@
+name: CI Pipeline Personal Portfolio
+
+# 1. Eventos que disparan el flujo
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+# 2. Definición de trabajos
+jobs:
+  build-and-test:
+    name: Build & Test application
+    runs-on: ubuntu-lastest
+
+    steps:
+      # Paso 1: Clonar el código del repositorio en el runner
+
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+        # Paso 2: Configurar el entorno de tiempo de ejecución (Node.js en este ejemplo)
+      - name: Set up Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+        # Paso 3: Instalar dependencias  
+      - name: Install Dependencies
+        run: npm ci
+
+        # Paso 4: Ejecutar Linter / Verificación de formato
+      - name: Install Linter
+        run: npm run lint --if-present
+
+        # Paso 5: Ejecutar Pruebas Unitarias
+      - name: Run Unit Tests
+        run: npm test
+
+        # Paso 6: Compilar el proyecto (Build)
+      - name: Build Project
+        run: npm run build

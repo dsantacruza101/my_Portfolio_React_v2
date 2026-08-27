@@ -51,5 +51,14 @@
       "subject_error": "Subject is too short",
       "message_error": "Please provide more details (minimum 10 characters)"
     }
+  },
+  "chat": {
+    "open": "Open chat",
+    "close": "Close chat",
+    "title": "Ask about Daniel",
+    "greeting": "What would you like to know about Daniel Santacruz?",
+    "placeholder": "Type your question...",
+    "send": "Send",
+    "error": "Something went wrong. Please try again."
   }
 }

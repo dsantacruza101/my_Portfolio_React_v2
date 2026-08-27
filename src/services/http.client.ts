@@ -1,3 +1,6 @@
+import { firstValueFrom, type Observable } from 'rxjs';
+import { fromFetch } from 'rxjs/fetch';
+
 type RequestOptions = Omit<RequestInit, 'body'> & { body?: unknown };
 
 interface RequestContext {
@@ -8,13 +11,22 @@ interface RequestContext {
 /** A function that receives and transforms a request context before it is fetched. */
 type RequestInterceptor = (ctx: RequestContext) => RequestContext;
 
+interface HttpClientConfig {
+  /** Overrides the base URL read from `VITE_API_BASE_URL`. */
+  baseUrl?: string;
+  /** When `false`, skips registering the default `/api`-prefix interceptor. Defaults to `true`. */
+  useApiPrefix?: boolean;
+}
+
 export class HttpClient {
   private readonly baseUrl: string;
   private readonly requestInterceptors: RequestInterceptor[] = [];
 
-  constructor() {
-    this.baseUrl = import.meta.env.VITE_API_BASE_URL as string;
-    this.registerDefaultInterceptors();
+  constructor(config: HttpClientConfig = {}) {
+    this.baseUrl = config.baseUrl ?? (import.meta.env.VITE_API_BASE_URL as string);
+    if (config.useApiPrefix ?? true) {
+      this.registerDefaultInterceptors();
+    }
   }
 
   /**
@@ -35,13 +47,27 @@ export class HttpClient {
   }
 
   /**
+   * Parses a fetch {@link Response}, throwing on non-2xx responses using the
+   * server's `message` field when available.
+   */
+  private async parseResponse<T>(response: Response): Promise<T> {
+    if (!response.ok) {
+      const error = await response.json().catch(() => null) as { message?: string } | null;
+      throw new Error(error?.message ?? `Request failed with status ${response.status}`);
+    }
+
+    const text = await response.text();
+    return (text ? JSON.parse(text) : undefined) as T;
+  }
+
+  /**
    * Executes an HTTP request after running all registered interceptors.
    * Automatically sets `Content-Type: application/json` and serializes the body.
-   * Throws on non-2xx responses, using the server's `message` field when available.
+   * Unsubscribing before the response resolves aborts the underlying fetch.
    * @param path - Path relative to the base URL (e.g. `/portfolio/contact-me`).
    * @param options - Fetch options; `body` is serialized to JSON automatically.
    */
-  async request<T = void>(path: string, options: RequestOptions = {}): Promise<T> {
+  request$<T = void>(path: string, options: RequestOptions = {}): Observable<T> {
     const { body, headers, ...rest } = options;
 
     let ctx: RequestContext = {
@@ -55,15 +81,25 @@ export class HttpClient {
 
     ctx = this.requestInterceptors.reduce((c, interceptor) => interceptor(c), ctx);
 
-    const response = await fetch(`${this.baseUrl}${ctx.url}`, ctx.options as RequestInit);
+    return fromFetch(`${this.baseUrl}${ctx.url}`, {
+      ...(ctx.options as RequestInit),
+      selector: (response) => this.parseResponse<T>(response),
+    });
+  }
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => null) as { message?: string } | null;
-      throw new Error(error?.message ?? `Request failed with status ${response.status}`);
-    }
+  /**
+   * Promise-based variant of {@link request$} — resolves with the first (and only) emission.
+   */
+  request<T = void>(path: string, options?: RequestOptions): Promise<T> {
+    return firstValueFrom(this.request$<T>(path, options));
+  }
 
-    const text = await response.text();
-    return (text ? JSON.parse(text) : undefined) as T;
+  /**
+   * Sends a GET request to the given path, as an Observable.
+   * @param path - Path relative to the base URL.
+   */
+  get$<T = void>(path: string, options?: Omit<RequestOptions, 'body'>): Observable<T> {
+    return this.request$<T>(path, { ...options, method: 'GET' });
   }
 
   /**
@@ -71,7 +107,16 @@ export class HttpClient {
    * @param path - Path relative to the base URL.
    */
   get<T = void>(path: string, options?: Omit<RequestOptions, 'body'>) {
-    return this.request<T>(path, { ...options, method: 'GET' });
+    return firstValueFrom(this.get$<T>(path, options));
+  }
+
+  /**
+   * Sends a POST request with an optional JSON body, as an Observable.
+   * @param path - Path relative to the base URL.
+   * @param body - Value to serialize as the request body.
+   */
+  post$<T = void>(path: string, body?: unknown, options?: RequestOptions): Observable<T> {
+    return this.request$<T>(path, { ...options, method: 'POST', body });
   }
 
   /**
@@ -80,7 +125,7 @@ export class HttpClient {
    * @param body - Value to serialize as the request body.
    */
   post<T = void>(path: string, body?: unknown, options?: RequestOptions) {
-    return this.request<T>(path, { ...options, method: 'POST', body });
+    return firstValueFrom(this.post$<T>(path, body, options));
   }
 }
 

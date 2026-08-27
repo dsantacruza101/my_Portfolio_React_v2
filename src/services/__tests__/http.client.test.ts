@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '../http.client';
 
 let client: HttpClient;
@@ -118,6 +119,41 @@ describe('HttpClient — request', () => {
   });
 });
 
+describe('HttpClient — custom config', () => {
+  it('uses the provided baseUrl instead of VITE_API_BASE_URL', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, text: async () => '' });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const customClient = new HttpClient({ baseUrl: 'https://chat.example.com' });
+    await customClient.get('/chat');
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url.startsWith('https://chat.example.com')).toBe(true);
+  });
+
+  it('skips the /api prefix when useApiPrefix is false', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, text: async () => '' });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const customClient = new HttpClient({ baseUrl: 'https://chat.example.com', useApiPrefix: false });
+    await customClient.post('/chat', { message: 'hi' });
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url).toBe('https://chat.example.com/chat');
+  });
+
+  it('still applies the /api prefix by default when only baseUrl is overridden', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, text: async () => '' });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const customClient = new HttpClient({ baseUrl: 'https://chat.example.com' });
+    await customClient.get('/chat');
+
+    const [url] = fetchMock.mock.calls[0] as [string];
+    expect(url).toBe('https://chat.example.com/api/chat');
+  });
+});
+
 describe('HttpClient — get', () => {
   it('sends a GET request', async () => {
     const fetchMock = vi.fn().mockResolvedValue({ ok: true, text: async () => '' });
@@ -139,5 +175,38 @@ describe('HttpClient — post', () => {
 
     const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
     expect(options.method).toBe('POST');
+  });
+});
+
+describe('HttpClient — get$/post$', () => {
+  it('get$ emits the parsed response body and completes', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => JSON.stringify({ id: 1 }),
+    }));
+
+    await expect(firstValueFrom(client.get$<{ id: number }>('/test'))).resolves.toEqual({ id: 1 });
+  });
+
+  it('post$ emits the parsed response body and completes', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      ok: true,
+      text: async () => JSON.stringify({ id: 2 }),
+    }));
+
+    await expect(
+      firstValueFrom(client.post$<{ id: number }>('/test', { name: 'Daniel' }))
+    ).resolves.toEqual({ id: 2 });
+  });
+
+  it('aborts the underlying fetch when unsubscribed before the response resolves', () => {
+    const fetchMock = vi.fn().mockReturnValue(new Promise(() => {}));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const subscription = client.get$('/test').subscribe();
+    subscription.unsubscribe();
+
+    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect((options.signal as AbortSignal).aborted).toBe(true);
   });
 });

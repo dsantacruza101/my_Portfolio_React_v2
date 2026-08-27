@@ -1,6 +1,7 @@
 
 import './App.css'
 import { About } from './components/About';
+import { ChatWidget } from './components/ChatWidget';
 import { Contact } from './components/Contact';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
@@ -21,6 +22,7 @@ function App() {
       <footer className="py-8 text-center text-slate-500 text-sm border-t border-slate-100 dark:border-slate-800">
         © {year} Daniel Santacruz. Built with React & Tailwind v4.
       </footer>
+      <ChatWidget />
     </main>
   );
 }
