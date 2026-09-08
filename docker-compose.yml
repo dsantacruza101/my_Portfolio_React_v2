@@ -1,14 +1,18 @@
 services:
   portfolio:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+        - VITE_HCAPTCHA_SITE_KEY=${VITE_HCAPTCHA_SITE_KEY}
     container_name: daniel-portfolio-app
     ports:
       - "8080:80"
     restart: unless-stopped
     networks:
       - portfolio-network
+
 networks:
   portfolio-network:
     driver: bridge
