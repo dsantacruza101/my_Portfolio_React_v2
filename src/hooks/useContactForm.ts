@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import type { BaseSyntheticEvent } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -42,37 +43,51 @@ export function useContactForm() {
   });
 
   /** Resets the captcha widget and clears the stored token. */
-  const resetCaptcha = () => {
+  const resetCaptcha = useCallback(() => {
     captchaRef.current?.resetCaptcha();
     setCaptchaToken(null);
-  };
+  }, []);
 
-  const onSubmit = async (data: ContactFormData) => {
-    if (!captchaToken) {
-      toast.error(t("contact.captcha_required") || "Please complete the captcha");
-      return;
-    }
+  const onSubmit = useCallback(
+    async (data: ContactFormData) => {
+      if (!captchaToken) {
+        toast.error(t("contact.captcha_required") || "Please complete the captcha");
+        return;
+      }
 
-    const toastId = toast.loading(t("contact.sending"));
-    try {
-      await contactService.sendMessage({ ...data, captchaToken });
-      toast.success(t("contact.success"), { id: toastId });
-      reset();
-      resetCaptcha();
-      setCooldown(true);
-      setTimeout(() => setCooldown(false), COOLDOWN_MS);
-    } catch {
-      toast.error(t("contact.sending_error") || "Could not send message", {
-        id: toastId,
-      });
-      resetCaptcha();
-    }
-  };
+      const toastId = toast.loading(t("contact.sending"));
+      try {
+        await contactService.sendMessage({ ...data, captchaToken });
+        toast.success(t("contact.success"), { id: toastId });
+        reset();
+        resetCaptcha();
+        setCooldown(true);
+        setTimeout(() => setCooldown(false), COOLDOWN_MS);
+      } catch {
+        toast.error(t("contact.sending_error") || "Could not send message", {
+          id: toastId,
+        });
+        resetCaptcha();
+      }
+    },
+    [captchaToken, t, reset, resetCaptcha]
+  );
+
+  /**
+   * Bound submit handler — pass directly to `<form onSubmit>`.
+   *
+   * `handleSubmit(onSubmit)` is invoked here, inside the event handler,
+   * rather than during render — react-hook-form's `handleSubmit` reads
+   * internal refs, and refs must only be accessed outside of render.
+   */
+  const onFormSubmit = useCallback(
+    (event?: BaseSyntheticEvent) => handleSubmit(onSubmit)(event),
+    [handleSubmit, onSubmit]
+  );
 
   return {
     register,
-    /** Bound submit handler — pass directly to `<form onSubmit>`. */
-    handleSubmit: handleSubmit(onSubmit),
+    handleSubmit: onFormSubmit,
     errors,
     /** `true` while the form submission is in flight. */
     isSubmitting,
